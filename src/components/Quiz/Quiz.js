@@ -152,8 +152,7 @@ export default function Quiz(props) {
         setUserScore(quiz.userScore);
         setIdx(quiz.idx);
         setQuizState(quiz.quizState);
-        let timer = (quiz.timer > 0 ? quiz.timer : timeOut);
-        resetTimer(timer);
+        resetTimer()
     }, [props.quizId, timeOut]);
 
 
