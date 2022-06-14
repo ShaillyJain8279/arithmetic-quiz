@@ -1,0 +1,23 @@
+.App {
+  min-width: 80vw;
+  .header {
+    text-align: center;
+    color: white;
+  }
+
+  .stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      margin: 0px 10px;
+      color: white;
+    }
+  }
+}
+.quizzes-container {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
