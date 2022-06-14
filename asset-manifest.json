@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/arithmetic-quiz/static/css/main.4305caf8.css",
-    "main.js": "/arithmetic-quiz/static/js/main.e06a4c2d.js",
+    "main.css": "/arithmetic-quiz/static/css/main.7ac377e3.css",
+    "main.js": "/arithmetic-quiz/static/js/main.15c01935.js",
     "static/js/787.5824c21b.chunk.js": "/arithmetic-quiz/static/js/787.5824c21b.chunk.js",
     "index.html": "/arithmetic-quiz/index.html",
-    "main.4305caf8.css.map": "/arithmetic-quiz/static/css/main.4305caf8.css.map",
-    "main.e06a4c2d.js.map": "/arithmetic-quiz/static/js/main.e06a4c2d.js.map",
+    "main.7ac377e3.css.map": "/arithmetic-quiz/static/css/main.7ac377e3.css.map",
+    "main.15c01935.js.map": "/arithmetic-quiz/static/js/main.15c01935.js.map",
     "787.5824c21b.chunk.js.map": "/arithmetic-quiz/static/js/787.5824c21b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4305caf8.css",
-    "static/js/main.e06a4c2d.js"
+    "static/css/main.7ac377e3.css",
+    "static/js/main.15c01935.js"
   ]
 }
