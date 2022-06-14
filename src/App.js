@@ -109,11 +109,11 @@ function App() {
         <p>Cumulative Score: {config.cumulativeScore}</p>
       </div>
       <div className='quizzes-container'>
-        <Quiz title={config.quiz1Title} timeOut={config.quiz1Timeout}
+        <Quiz quizId={1} title={config.quiz1Title} timeOut={config.quiz1Timeout}
           numOfQuestionsInQuiz={config.quiz1NumOfQuestions} 
           point={config.quiz1Point} negative={config.quiz1Negative} 
           onEndQuiz={onEndQuiz}/>
-        <Quiz title={config.quiz2Title} timeOut={config.quiz2Timeout}
+        <Quiz quizId={2} title={config.quiz2Title} timeOut={config.quiz2Timeout}
           numOfQuestionsInQuiz={config.quiz2NumOfQuestions} 
           point={config.quiz2Point} negative={config.quiz2Negative} 
           onEndQuiz={onEndQuiz}/>
