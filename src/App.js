@@ -29,16 +29,16 @@ function App() {
   // updates the default configuration
   const defaultConfig = (currentConfig) => {
     currentConfig.quiz1Title ||= "Arithmetic Quiz 1"
-    currentConfig.quiz1NumOfQuestions ||= 2;
-    currentConfig.quiz1Timeout ||= 10;
-    currentConfig.quiz1Point ||= 1;
-    currentConfig.quiz1Negative ||= 0;
+    currentConfig.quiz1NumOfQuestions ||= 20;
+    currentConfig.quiz1Timeout ||= 20;
+    currentConfig.quiz1Point ||= 2;
+    currentConfig.quiz1Negative ||= -1;
 
     currentConfig.quiz2Title ||= "Arithmetic Quiz 2"
     currentConfig.quiz2NumOfQuestions ||= 5;
-    currentConfig.quiz2Timeout ||= 20;
+    currentConfig.quiz2Timeout ||= 10;
     currentConfig.quiz2Point ||= 2;
-    currentConfig.quiz2Negative ||= -1;
+    currentConfig.quiz2Negative ||= 0;
 
     return currentConfig;
   };
