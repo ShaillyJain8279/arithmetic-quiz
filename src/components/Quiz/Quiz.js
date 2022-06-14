@@ -146,12 +146,12 @@ export default function Quiz(props) {
         try {
             quiz = JSON.parse(localStorage.getItem(`quiz_${props.quizId}`));
         } catch (error) { }
-        if (!quiz) return;
-        setQuizState(quiz.quizState);
+        if (!quiz)  return;
         setQuestions(quiz.questions);
         setUserAnswer(quiz.userAnswer);
         setUserScore(quiz.userScore);
         setIdx(quiz.idx);
+        setQuizState(quiz.quizState);
         let timer = (quiz.timer > 0 ? quiz.timer : timeOut);
         resetTimer(timer);
     }, [props.quizId, timeOut]);

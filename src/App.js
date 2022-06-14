@@ -73,7 +73,11 @@ function App() {
     let target = event.target;
     setCurrConfig(config => {
       let newConfig = {...config};
+      let attr = target.getAttribute('name');      
       newConfig[target.getAttribute('name')] = target.value;
+      if (attr.indexOf('Operators') !== -1) {
+        newConfig[attr] = target.value.split(',').map(op => op.trim());
+      }
       return newConfig;
     })
   };
