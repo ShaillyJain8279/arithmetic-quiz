@@ -15,12 +15,14 @@ function App() {
     quiz1Timeout: 0,
     quiz1Point: 0,
     quiz1Negative: 0,
+    quiz1Operators: ['+', '-', '*', '/'],
 
     quiz2Title: '',
     quiz2NumOfQuestions: 0,
     quiz2Timeout: 0,
     quiz2Point: 0,
     quiz2Negative: 0,
+    quiz2Operators: ['+', '-', '*', '/'],
   });
 
   // current configurations
@@ -33,12 +35,14 @@ function App() {
     currentConfig.quiz1Timeout ||= 20;
     currentConfig.quiz1Point ||= 2;
     currentConfig.quiz1Negative ||= -1;
+    currentConfig.quiz1Operators ||= ['+', '-', '*', '/', '%', '^'];
 
     currentConfig.quiz2Title ||= "Arithmetic Quiz 2"
     currentConfig.quiz2NumOfQuestions ||= 5;
     currentConfig.quiz2Timeout ||= 10;
     currentConfig.quiz2Point ||= 2;
     currentConfig.quiz2Negative ||= 0;
+    currentConfig.quiz2Operators ||= ['+', '-', '*', '/', '%', '^'];
 
     return currentConfig;
   };
@@ -97,11 +101,24 @@ function App() {
     })
   };
 
+  // clears the cache
+  const onCleanCache = () => {
+    window.onbeforeunload = () => {};
+    let confirmClean = window.confirm("Are you sure you want to clean cache?");
+    if (!confirmClean)  return;
+    localStorage.removeItem('quiz_1');
+    localStorage.removeItem('quiz_2');
+    localStorage.removeItem('config');
+    window.location.reload();
+    setConfig(config => defaultConfig(config));
+  };
+
   return (
     <div className="App">
       <ConfigDrawer {...currConfig} 
         onChangeConfigAttribute={onChangeConfigAttribute}
         onSaveConfig={onSaveConfig}
+        onCleanCache={onCleanCache}
       />
       <h1 className='header'>Arithmetic Quiz</h1>
       <div className='stats'>
@@ -112,10 +129,12 @@ function App() {
         <Quiz quizId={1} title={config.quiz1Title} timeOut={config.quiz1Timeout}
           numOfQuestionsInQuiz={config.quiz1NumOfQuestions} 
           point={config.quiz1Point} negative={config.quiz1Negative} 
+          operators={config.quiz1Operators}
           onEndQuiz={onEndQuiz}/>
         <Quiz quizId={2} title={config.quiz2Title} timeOut={config.quiz2Timeout}
           numOfQuestionsInQuiz={config.quiz2NumOfQuestions} 
           point={config.quiz2Point} negative={config.quiz2Negative} 
+          operators={config.quiz2Operators}
           onEndQuiz={onEndQuiz}/>
       </div>
     </div>

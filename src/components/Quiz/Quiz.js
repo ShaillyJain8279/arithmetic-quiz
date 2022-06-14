@@ -92,7 +92,8 @@ export default function Quiz(props) {
         let num1 = generateRandomNumber();
         let num2 = generateRandomNumber();
         // pick a random operator
-        let idx = generateRandomNumber(0, operators.length - 1);
+        let idx = generateRandomNumber(1, operators.length) - 1;
+        console.log(idx);
         let op = operators[idx];
         let oldQuestions = [...questions];
         oldQuestions.push({ num1, num2, op, userAnswer });
@@ -146,7 +147,6 @@ export default function Quiz(props) {
             quiz = JSON.parse(localStorage.getItem(`quiz_${props.quizId}`));
         } catch (error) { }
         if (!quiz) return;
-        console.log(quiz);
         setQuizState(quiz.quizState);
         setQuestions(quiz.questions);
         setUserAnswer(quiz.userAnswer);

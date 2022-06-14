@@ -41,6 +41,12 @@ export default function ConfigDrawer(props) {
                             <input type="number" id='quiz1negative' name="quiz1Negative" value={props.quiz1Negative} onChange={onChangeConfigAttribute} />
                         </div>
                     </div>
+                    <div className='input-group'>
+                        <label htmlFor='quiz1operators'>Operators</label>
+                        <input type="text" id='quiz1operators' name="quiz1Operators"
+                        placeholder='+,-,*,/,%,^'
+                        value={props.quiz1Operators} onChange={onChangeConfigAttribute} />
+                    </div>
                 </div>
                 <div className='hr' />
                 <div className='quiz-config'>
@@ -69,8 +75,18 @@ export default function ConfigDrawer(props) {
                             <input type="number" id='quiz2negative' name="quiz2Negative" value={props.quiz2Negative} onChange={onChangeConfigAttribute} />
                         </div>
                     </div>
+                    <div className='input-group'>
+                        <label htmlFor='quiz2operators'>Operators</label>
+                        <input type="text" id='quiz2operators' 
+                        placeholder='+,-,*,/,%,^'
+                        name="quiz2Operators" value={props.quiz2Operators} onChange={onChangeConfigAttribute} />
+                    </div>
                 </div>
-                <button onClick={props.onSaveConfig} className='button'>Save Changes</button>
+                <button onClick={event => {
+                    setDrawerClass('close');
+                    props.onSaveConfig();
+                }} className='button'>Save Changes</button>
+                <button style={{backgroundColor: "#dc3545"}} onClick={props.onCleanCache} className='button'>Clean Cache</button>
             </div>
         </div>
     );
