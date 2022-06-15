@@ -8,7 +8,7 @@ const Quiz = (props, ref) => {
     const minNumber = props.minNumber || 0;
     const maxNumber = props.maxNumber || 10;
     const operators = props.operators || ['+', '-', '*', '/'];
-    const timeOut = props.timeOut || 20 * 1000;
+    const timeOut = props.timeOut || 20;
     const positive = props.point || 1;
     const negative = props.negative || 0;
 
