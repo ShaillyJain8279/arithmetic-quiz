@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import './Quiz.scss';
 
-export default function Quiz(props) {
+const Quiz = (props, ref) => {
 
     // configurable properties
     const numOfQuestionsInQuiz = props.numOfQuestionsInQuiz || 20;
@@ -18,7 +18,7 @@ export default function Quiz(props) {
     const [userScore, setUserScore] = useState(0);
 
     // for count down
-    const ref = useRef(null);
+    const timerRef = useRef(null);
     const [timer, setTimer] = useState(-1);
 
     // used for report generation
@@ -57,8 +57,8 @@ export default function Quiz(props) {
 
     const resetTimer = (startTime = timeOut) => {
         setTimer(startTime);
-        if (ref.current) clearInterval(ref.current);
-        ref.current = setInterval(() => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = setInterval(() => {
             setTimer(timer => timer - 1);
         }, 1000);
     };
@@ -66,7 +66,7 @@ export default function Quiz(props) {
     // starts the quiz
     const restartQuiz = (fromState) => {
         // clear up all inputs and timers
-        if (ref.current) clearInterval(ref.current);
+        if (timerRef.current) clearInterval(timerRef.current);
         setIdx(0);
         setQuizState(fromState);
         setQuestions([]);
@@ -82,7 +82,7 @@ export default function Quiz(props) {
 
     const addQuestion = () => {
         // stop the ongoing timer
-        if (ref.current) clearInterval(ref.current);
+        if (timerRef.current) clearInterval(timerRef.current);
         // check if we have reached to end of quiz
         if (questions.length === numOfQuestionsInQuiz) {
             endQuiz();
@@ -93,7 +93,6 @@ export default function Quiz(props) {
         let num2 = generateRandomNumber();
         // pick a random operator
         let idx = generateRandomNumber(1, operators.length) - 1;
-        console.log(idx);
         let op = operators[idx];
         let oldQuestions = [...questions];
         oldQuestions.push({ num1, num2, op, userAnswer });
@@ -124,21 +123,20 @@ export default function Quiz(props) {
 
     useEffect(() => {
         if (timer === 0) nextQuestion();
+        // eslint-disable-next-line
     }, [timer]);
 
     // save items to localStorage
-    useEffect(() => {
-        window.onbeforeunload = () => {
-            localStorage.setItem(`quiz_${props.quizId}`, JSON.stringify({
-                quizState,
-                questions,
-                userAnswer,
-                userScore,
-                timer,
-                idx,
-            }))
-        };
-    }, [quizState, questions, userAnswer, userScore, timer, idx, props.quizId]);
+    // eslint-disable-next-line
+    const saveQuizToLocalStorage = () => {
+        localStorage.setItem(`quiz_${props.quizId}`, JSON.stringify({
+            quizState,
+            questions,
+            userAnswer,
+            userScore,
+            idx,
+        }))
+    };
 
     // loads the quiz state from localStorage
     useEffect(() => {
@@ -153,7 +151,8 @@ export default function Quiz(props) {
         setIdx(quiz.idx);
         setQuizState(quiz.quizState);
         resetTimer()
-    }, [props.quizId, timeOut]);
+        // eslint-disable-next-line
+    }, [props.quizId]);
 
 
 
@@ -170,12 +169,12 @@ export default function Quiz(props) {
     if (reportQuestion && !isCorrectAnswer(reportQuestion)) colorClass = 'danger';
 
     return (
-        <div className='quiz'>
+        <div className='quiz' id={`quiz_${props.quizId}`} ref={ref} onClick={saveQuizToLocalStorage}>
             <h1 className='header'>{props.title || "Arithmetic Quiz"}</h1>
 
             {quizState === 'NOT_STARTED' &&
                 <div className='start-quiz-container'>
-                    <h3>Please read the instructions carefully before starting the quiz</h3>
+                    <h3>Please read the instructions catimerRefully before starting the quiz</h3>
                     <ul>
                         <li>The quiz contains a total of {numOfQuestionsInQuiz} question(s).</li>
                         <li>For each question you will get {timeOut}s to answer.</li>
@@ -259,3 +258,5 @@ export default function Quiz(props) {
         </div>
     )
 };
+
+export default forwardRef(Quiz);

@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Quiz from './components/Quiz/Quiz';
 import ConfigDrawer from './components/Drawer/Drawer';
 
 function App() {
+
+  // reference for quizzes
+  let quiz1Ref = React.useRef(null);
+  let quiz2Ref = React.useRef(null);
 
   // used for maintaining configurations
   const [config, setConfig] = useState({
@@ -106,16 +110,24 @@ function App() {
   };
 
   // clears the cache
-  const onCleanCache = () => {
-    window.onbeforeunload = () => {};
+  const onCleanCache = () => {    
     let confirmClean = window.confirm("Are you sure you want to clean cache?");
     if (!confirmClean)  return;
+    window.onbeforeunload = () => {};
     localStorage.removeItem('quiz_1');
     localStorage.removeItem('quiz_2');
     localStorage.removeItem('config');
     window.location.reload();
     setConfig(config => defaultConfig(config));
   };
+
+  // saves the state of quiz to localStorage
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      if (quiz1Ref.current) quiz1Ref.current.click();
+      if (quiz2Ref.current) quiz2Ref.current.click();  
+    }
+  }, [quiz1Ref, quiz2Ref]);
 
   return (
     <div className="App">
@@ -134,12 +146,12 @@ function App() {
           numOfQuestionsInQuiz={config.quiz1NumOfQuestions} 
           point={config.quiz1Point} negative={config.quiz1Negative} 
           operators={config.quiz1Operators}
-          onEndQuiz={onEndQuiz}/>
+          onEndQuiz={onEndQuiz} ref={quiz1Ref}/>
         <Quiz quizId={2} title={config.quiz2Title} timeOut={config.quiz2Timeout}
           numOfQuestionsInQuiz={config.quiz2NumOfQuestions} 
           point={config.quiz2Point} negative={config.quiz2Negative} 
           operators={config.quiz2Operators}
-          onEndQuiz={onEndQuiz}/>
+          onEndQuiz={onEndQuiz} ref={quiz2Ref}/>
       </div>
     </div>
   );
