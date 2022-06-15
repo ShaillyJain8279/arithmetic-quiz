@@ -135,6 +135,7 @@ const Quiz = (props, ref) => {
             userAnswer,
             userScore,
             idx,
+            timer
         }))
     };
 
@@ -150,9 +151,11 @@ const Quiz = (props, ref) => {
         setUserScore(quiz.userScore);
         setIdx(quiz.idx);
         setQuizState(quiz.quizState);
-        resetTimer()
+        let startTime = quiz.timer;
+        if (startTime < 0)  startTime = timeOut;
+        resetTimer(startTime);
         // eslint-disable-next-line
-    }, [props.quizId]);
+    }, [props.quizId, timeOut]);
 
 
 
